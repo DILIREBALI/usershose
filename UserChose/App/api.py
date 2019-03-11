@@ -27,14 +27,12 @@ class updateusershoes(View):
         phone = int(request.POST.get('phone'))
         name = request.POST.get('name')
         shoses = request.POST.get('shoes')
-        print(shoses,type(shoses))
         user, _ = User.objects.get_or_create({'username':name, 'userphone':phone})
         for shose in shoses :
             Chose.color = shose[0]
             Chose.size = shose[1]
             Chose.user_id = user.id
             Chose.save()
-
         shoesid = Chose.objects.filter(user_id=user.id).only(id)
         data = {
             "success": 'true',
